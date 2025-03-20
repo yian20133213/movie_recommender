@@ -252,12 +252,12 @@ def app():
                         st.session_state.recommender.user_data = default_data
                         st.session_state.confirm_reset = None
                         st.success("数据已重置！")
-                        st.experimental_rerun()
+                        st.rerun()
                 
                 with confirm_col2:
                     if st.button("❌ 取消", key="cancel_delete"):
                         st.session_state.confirm_reset = None
-                        st.experimental_rerun()
+                        st.rerun()
 
 if __name__ == "__main__":
     app()

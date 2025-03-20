@@ -21,4 +21,5 @@ Thumbs.db
 # IDE相关文件
 .idea/
 .vscode/
-*.swp
+*.swp.streamlit/secrets.toml
+.env

@@ -237,7 +237,7 @@ def display_movie_card(movie):
     if st.button("查看详情", key=f"search_details_{movie['id']}"):
         # 跳转到详情页
         st.session_state.movie_details = st.session_state.tmdb_api.get_movie_details(movie['id'])
-        st.experimental_rerun()
+        st.rerun()
         
     st.markdown("</div>", unsafe_allow_html=True)
 

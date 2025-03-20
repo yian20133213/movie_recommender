@@ -113,14 +113,14 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = "home"
 
 # 导入页面模块后引入的app函数
-from pages.home import app as home_app
+from pages.home import main as home_app
 from pages.search import app as search_app
 from pages.profile import app as profile_app
 
 # 导航栏
 def show_navigation():
     """显示侧边栏导航"""
-    st.sidebar.image("assets/images/logo.png", use_column_width=True)
+    st.sidebar.image("assets/images/logo.png", use_container_width=True)
     st.sidebar.markdown("<hr>", unsafe_allow_html=True)
     
     # 导航菜单
@@ -158,7 +158,7 @@ def show_navigation():
             unsafe_allow_html=True
         ):
             st.session_state.current_page = page_id
-            st.experimental_rerun()
+            st.rerun()
     
     st.sidebar.markdown("<hr>", unsafe_allow_html=True)
     
@@ -188,7 +188,7 @@ def show_navigation():
                 st.session_state.tmdb_api.api_key = new_api_key
                 st.success("API密钥已更新！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
 
 # JavaScript代码用于导航交互
 nav_script = """
@@ -234,7 +234,7 @@ def show_movie_detail_page(movie):
     # 返回按钮
     if st.button("← 返回"):
         st.session_state.movie_details = None
-        st.experimental_rerun()
+        st.rerun()
         
     col1, col2 = st.columns([1, 2])
     
@@ -285,19 +285,19 @@ def show_movie_detail_page(movie):
                 mark_as_watched(movie['id'], True)
                 st.success("已添加到你喜欢的电影！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
         with col2:
             if st.button("👎 不喜欢", key="dislike_detail"):
                 mark_as_watched(movie['id'], False)
                 st.success("已记录你的评价！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
         with col3:
             if st.button("🕒 稍后再看", key="watch_later"):
                 mark_as_watched(movie['id'])
                 st.success("已添加到稍后再看！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
     
     # 相似电影推荐
     st.markdown("### 相似电影推荐")
@@ -365,7 +365,7 @@ def show_movie_details(movie_id):
     try:
         details = st.session_state.tmdb_api.get_movie_details(movie_id)
         st.session_state.movie_details = details
-        st.experimental_rerun()
+        st.rerun()
     except Exception as e:
         st.error(f"获取电影详情时出错: {e}")
 

@@ -16,28 +16,38 @@ class TMDBApi:
             api_key: TMDB API密钥
         """
         self.api_key = api_key
-        
+
     def _make_request(self, endpoint: str, params: Dict = None) -> Dict:
         """
         发送API请求
-        
+
         参数:
             endpoint: API终端路径
             params: 查询参数
-            
+
         返回:
             解析后的JSON响应
         """
         if params is None:
             params = {}
-        
-        params["api_key"] = self.api_key
-        params["language"] = "zh-CN"  # 使用中文返回结果
-        
+
+        # 不再使用API密钥参数
+        # params["api_key"] = self.api_key
+
+        # 设置语言参数
+        params["language"] = "zh-CN"
+
+        # 使用Bearer令牌认证
+        headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {self.api_key}"  # 这里使用api_key变量，但实际存储的是访问令牌
+        }
+
         url = f"{self.BASE_URL}{endpoint}"
-        response = requests.get(url, params=params)
+
+        response = requests.get(url, params=params, headers=headers)
         response.raise_for_status()
-        
+
         return response.json()
     
     def search_movies(self, query: str, page: int = 1) -> Dict:

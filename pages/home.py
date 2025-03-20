@@ -6,12 +6,12 @@ from utils.recommend import MovieRecommender
 import time
 
 # 页面配置
-st.set_page_config(
-    page_title="AI观影助手",
-    page_icon="🎬",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# st.set_page_config(
+#     page_title="AI观影助手",
+#     page_icon="🎬",
+#     layout="wide",
+#     initial_sidebar_state="expanded"
+# )
 
 # 自定义CSS
 st.markdown("""
@@ -215,7 +215,7 @@ def show_movie_detail_page():
     # 返回按钮
     if st.button("← 返回推荐列表"):
         st.session_state.movie_details = None
-        st.experimental_rerun()
+        st.rerun()
         
     col1, col2 = st.columns([1, 2])
     
@@ -251,19 +251,19 @@ def show_movie_detail_page():
                 mark_as_watched(movie['id'], True)
                 st.success("已添加到你喜欢的电影！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
         with col2:
             if st.button("👎 不喜欢", key="dislike_detail"):
                 mark_as_watched(movie['id'], False)
                 st.success("已记录你的评价！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
         with col3:
             if st.button("🕒 稍后再看", key="watch_later"):
                 mark_as_watched(movie['id'])
                 st.success("已添加到稍后再看！")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
     
     # 相似电影推荐
     st.markdown("### 相似电影推荐")
@@ -313,7 +313,7 @@ def display_movie_card(movie):
     # 按钮
     if st.button("查看详情", key=f"details_{movie['id']}"):
         show_movie_details(movie['id'])
-        st.experimental_rerun()
+        st.rerun()
         
     st.markdown("</div>", unsafe_allow_html=True)
 
